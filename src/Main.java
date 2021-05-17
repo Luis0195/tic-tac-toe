@@ -1,10 +1,8 @@
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
+ * A program that simulates the tic-tac-toe game
  * 
  * @author luis0
  *
