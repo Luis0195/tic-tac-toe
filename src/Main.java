@@ -1,3 +1,6 @@
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -14,6 +17,7 @@ public class Main {
 	private static int p1Dice;
 	private static int p2Dice;
 	private static Board board;
+	private static Logger log;
 	
 	
 	public static void main(String[] args) {
@@ -22,15 +26,17 @@ public class Main {
 		player2 = new Player();
 		dice = new Dice();
 		board = new Board();
+		log = new Logger();
 		System.out.print("Vamos a jugar un tres en raya" + "\n" + "Para empezar undique el nombre del jugador 1: ");
 		namePlayer(player1);
 		System.out.print("Ahora introduzca el nombre del jugador 2: ");
 		namePlayer(player2);
+		log.writeFile("Van a jugar " + player1.getName() + " y " + player2.getName());
 		System.out.println("Ahora se decidirá quien empezará primero, para ello ambos jugadores tirarán un dado, aque que obtenga el numero más alto empezará primero");
 		rollDices();
 		board.printBoard();
 		System.out.println("Para colocar una ficha en una casilla debe de escribir primero la fila y luego la columna ejemplo: 1 A. El numero y la letra parados por un espacio");
-		while ((!player1.isWinner() && !player2.isWinner()) && board.isFull()) {
+		while ((!player1.isWinner() && !player2.isWinner()) && !board.isFull()) {
 			if (p1Dice > p2Dice) {
 				try {
 					setToken(player1);
@@ -64,11 +70,13 @@ public class Main {
 			}
 			
 		}
-		if ((!player1.isWinner() && !player2.isWinner()) && !board.isFull()) {
+		if ((!player1.isWinner() && !player2.isWinner()) && board.isFull()) {
 			System.out.println("Ha sido un empate");
+			log.writeFile("No hubo ganadores");
 		}
 		System.out.println("El juego ha terminado");
-		
+		log.writeFile("El juego ha terminado");
+		log.closeWirter();
 	}
 	/**
 	 * Rename the player 
@@ -93,6 +101,8 @@ public class Main {
 			p2Dice = dice.rollDice();
 			System.out.println(player2.getName() + " tira el dado y saca un: " + p2Dice);
 		}
+		log.writeFile(player1.getName() + " ha sacado un " + p1Dice);
+		log.writeFile(player2.getName() + " ha sacado un " + p2Dice);
 		if (p1Dice > p2Dice) {
 			System.out.println(player1.getName() + " empezará primero por lo que se le asignarán las fichas 'X' y a " + player2.getName() + " las 'O'");
 			player1.setToken("X");
@@ -110,12 +120,18 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Set the token at a given position
+	 * Also checks if the position is already taken
+	 * @param player
+	 */
 	public static void setToken(Player player) {
 		String place = "";
 		int x = 0;
 		int y = 0;
 		System.out.print(player.getName() + " donde quiere colocar la ficha? ");
 		place = console.nextLine();
+		// Check the length of the given String. If it's longer than 3 characters enters in the while loop
 		while (place.length() > 3) {
 			System.out.println("La cadena es introducida no puede tener mas de 3 caracteres.");
 			System.out.println("Estos deben de ser un NUMERO un ESPACIO EN BLANCO y una LETRA");
@@ -127,29 +143,38 @@ public class Main {
 		if (output[0].equals("1")) {
 			x = 0;
 		}
+		
 		else if (output[0].equals("2")) {
 			x = 1;
 		}
+		
 		else if (output[0].equals("3")) {
 			x = 2;
 		}
+		
 		else {
 			x = 4;
 		}
+		
 		if (output[1].equals("A")) {
 			y = 0;
 		}
+		
 		else if (output[1].equals("B")) {
 			y = 1;
 		}
+		
 		else if (output[1].equals("C")) {
 			y = 2;
 		}
+		
 		else {
 			y = 4;
 		}
+		
 		if (!board.isNotTaken(x, y)) {
 			board.setToken(x, y, player.getToken());
+			log.writeFile(player.getName() + " ha colocado la ficha en " + place);
 		}
 		else {
 			System.out.println("Esta posicion ya esta ocupada, intentelo de nuevo.");
@@ -158,6 +183,10 @@ public class Main {
 		
 	}
 	
+	/**
+	 * Check if the player made a line
+	 * @param player
+	 */
 	public static void line(Player player) {
 		int index = 0;
 		String line = "";
@@ -205,24 +234,23 @@ public class Main {
 				
 			default:
 				index++;
-			
+
 			}
 			
 			if (line.equals("XXX")) {
 				player.setWinner(true);
 				index = 9;
-				System.out.println("El jugador " + player.getName() + "ha ganado!");
+				System.out.println("El jugador " + player.getName() + " ha ganado!");
+				log.writeFile(player.getName() + " ganó la partida");
 			}
 			else if (line.equals("OOO")) {
 				player.setWinner(true);
 				index = 9;
 				System.out.println("El jugador " + player.getName() + " ha ganado!");
+				log.writeFile(player.getName() + " ganó la partida");
 			}
-		}
-		
-		
+		}	
 	}
 	
-
 	
 }

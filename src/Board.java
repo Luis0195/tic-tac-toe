@@ -8,7 +8,7 @@ public class Board {
 		isNotFull = true;
 	}
 	
-	public static void printBoard() {
+	public void printBoard() {
 		System.out.println("    A   B   C");
 		for (int i = 0; i < board.length; i++) { 
 			System.out.print((i + 1) + " |");
@@ -19,23 +19,21 @@ public class Board {
         }
 	}
 	
-	public static void setToken(int x, int y, String value) {
+	public void setToken(int x, int y, String value) {
 		board[x][y] = value;
 	}
 	
 	public boolean isFull() {
+		isNotFull = false;
 		for (int i = 0; i < board.length; i++) {
 			 for (int j = 0; j < board[i].length; j++) {
-	                if (board[i][j].equals("X") || board[i][j].equals("O")) {
-	                	isNotFull = false;
-	                }
-	                else {
+	                if (board[i][j].equals("_")) {
 	                	isNotFull = true;
 	                	break;
 	                }
 	            }
 		}
-		return isNotFull;
+		return !isNotFull;
 	}
 	
 	public boolean isNotTaken(int x, int y) {

@@ -11,6 +11,4 @@ public class Dice {
 		int diceNumber = dice.nextInt(6) + 1;
 		return diceNumber;
 	}
-
-
 }

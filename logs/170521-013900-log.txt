@@ -1,0 +1,14 @@
+17/05/2021 01:39:08 Van a jugar Luis y Cecilia
+17/05/2021 01:39:08 Luis ha sacado un 3
+17/05/2021 01:39:08 Cecilia ha sacado un 1
+17/05/2021 01:39:25 Luis ha colocado la ficha en 2 B
+17/05/2021 01:39:28 Cecilia ha colocado la ficha en 1 A
+17/05/2021 01:39:34 Luis ha colocado la ficha en 1 C
+17/05/2021 01:39:44 Cecilia ha colocado la ficha en 3 A
+17/05/2021 01:39:48 Luis ha colocado la ficha en 2 A
+17/05/2021 01:39:51 Cecilia ha colocado la ficha en 2 C
+17/05/2021 01:40:02 Luis ha colocado la ficha en 3 B
+17/05/2021 01:40:07 Cecilia ha colocado la ficha en 1 B
+17/05/2021 01:40:14 Luis ha colocado la ficha en 3 C
+17/05/2021 01:40:14 No hubo ganadores
+17/05/2021 01:40:14 El juego ha terminado
